@@ -12,12 +12,21 @@ p = CSV.File("C:\\export_df.csv")
 function PCV(p,gasolina,cpl,io::IO = stdout) ##p::os valores da tabela, gasolina::preço, cpl::quanto o caminhão faz por Litro
     m=length(p)
     s = rand(m,m)
+    d = 0.0
+    ç = 0.0
     for i = 1:m
         for j= 1:m
-            x = 6371*acos((cos((90-p[i][2])/180*pi))*cos((90-p[j][2])/180*pi) + sin((90-p[i][2])/180*pi)*sin((90-p[j][2])*pi/180)*cos((p[i][3]-p[j][3])*pi/180))*1.15
-            #poderiamos também utilizar a formula m(x)=129,3799*x -34,8839 que foi adquirida atraves de uma regresão linear
-            #onde meu x erra a distancia entre pontos (no caso distancia entre latitudes e longitudes) e o meu y era a distancia em km
-            s[i,j] = x
+            if ((cos((90-p[i][2])/180pi))cos((90-p[j][2])/180pi) + sin((90-p[i][2])/180pi)sin((90-p[j][2])pi/180)cos((p[i][3]-p[j][3])pi/180)) > 1
+                d = sqrt((p[i][2]-p[i][2])^2+(p[i][3]-p[j][3])^2)
+                ç = 129.3799d -34.8839
+                s[i,j] = ç
+            else
+                x = 6371acos((cos((90-p[i][2])/180pi))cos((90-p[j][2])/180pi) + sin((90-p[i][2])/180pi)sin((90-p[j][2])pi/180)cos((p[i][3]-p[j][3])pi/180))1.15
+            # formula de Haversine, utiliza as leis do cossenos considerando o modelo a curvatura da terra onde o raio é 6371 
+            # poderiamos também utilizar a formula m(x)=129,3799x -34,8839 que foi adquirida atraves de uma regresão linear
+            # onde meu x erra a distabncia entre pontos( no caso distancia entre latitudes e longitudes) e o meu y era a distancia em km
+                s[i,j] = x
+            end
         end
     end
     f = Model(with_optimizer(GLPK.Optimizer))
