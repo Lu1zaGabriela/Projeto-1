@@ -22,9 +22,9 @@ function PCV(p,gasolina,cpl,io::IO = stdout) ##p::os valores da tabela, gasolina
                 s[i,j] = ç
             else
                 x = 6371acos((cos((90-p[i][2])/180pi))cos((90-p[j][2])/180pi) + sin((90-p[i][2])/180pi)sin((90-p[j][2])pi/180)cos((p[i][3]-p[j][3])pi/180))1.15
-            # formula de Haversine, utiliza as leis do cossenos considerando o modelo a curvatura da terra onde o raio é 6371 
-            # poderiamos também utilizar a formula m(x)=129,3799x -34,8839 que foi adquirida atraves de uma regresão linear
-            # onde meu x erra a distabncia entre pontos( no caso distancia entre latitudes e longitudes) e o meu y era a distancia em km
+            # formula de Haversine, utiliza as leis do cossenos considerando o modelo a curvatura da terra onde o raio é 6371km
+            # poderiamos também utilizar a formula m(x)=129.3799x -34.8839 que foi adquirida atraves de uma regressão linear
+            # onde meu x erra a distancia entre pontos (no caso distancia entre latitudes e longitudes) e o meu y era a distancia em km
                 s[i,j] = x
             end
         end
