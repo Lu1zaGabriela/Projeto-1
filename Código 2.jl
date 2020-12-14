@@ -47,15 +47,15 @@ function PCV(p,gasolina,cpl,io::IO = stdout) ##p::os valores da tabela, gasolina
     MatrizX = JuMP.value.(x)
     Solução = Int[] #inteiro por conta das entradas da matriz
     push!(Solução, 1.0)
-    for i=1:l #1 é a empresa inicial
-        indice = argmax(MatrizX[Solução[end],1:l]) #procura o maior valor #esta parte condicional 2 e 3
+    for i=1:m #1 é a empresa inicial
+        indice = argmax(MatrizX[Solução[end],1:m]) #procura o maior valor #esta parte condicional 2 e 3
         if indice == Solução[1]
             break
         else
             push!(Solução,indice)
         end
     end
-    if length(Solução) < l 
+    if length(Solução) < m 
         @constraint(f, sum(x[Solução,Solução]) <= length(Solução)-1)
     end
     println(io, "|Cidades percorridas em ordem|     Km rodados     |    Custo da viajem   |")
