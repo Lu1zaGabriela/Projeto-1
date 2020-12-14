@@ -43,7 +43,6 @@ function PCV(p,gasolina,cpl,io::IO = stdout) ##p::os valores da tabela, gasolina
     optimize!(f)
     km = 0.0
     custo = 0.0
-    (l,t) = size(x)
     MatrizX = JuMP.value.(x)
     Solução = Int[] #inteiro por conta das entradas da matriz
     push!(Solução, 1.0)
